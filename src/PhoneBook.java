@@ -7,32 +7,60 @@ public class PhoneBook {
     public static void main(String[] args) {
         //Добавить считывание ввода пользователя в цикле
         Scanner scanner = new Scanner(System.in);
-        String name = scanner.nextLine();
+        String input = scanner.nextLine();
+
         String[][] book = new String[0][2];
-        while (!name.toLowerCase().equals("exit")) {
-            if (!checkName(name)) System.out.println("Введите корректное имя или exit чтобы выйти");
-            else {
-                String formatName = formatName(name);
+        while (!input.toLowerCase().equals("exit")) {
+            String formatName = "";
+            String formatNumber = "";
+
+            if (!checkName(input)) {//если пользователь ввел не имя, то проверим - возможно это номер
+                if (!checkPhoneNumber(input)) { //если все же не номер
+                    System.out.println("Введите корректное имя, телефон или exit чтобы выйти");
+                    input = scanner.nextLine();
+                    continue;
+                } else { // если пользователь ввел номер
+                    formatNumber = formatPhoneNumber(input);
+                    int indexRow = findNumberOfRowByNumber(book, formatNumber);
+                    if (indexRow != -1) {// если нашли номер телефона в справочнике
+                        System.out.println(book[indexRow][0]);
+                        System.out.println("Введите имя, телефон или exit чтобы выйти");
+                        input = scanner.nextLine();
+                        continue;
+                    } else {// не нашли номер в справочнике
+                        System.out.println("Введите имя, пожалуйста");
+                        String name = scanner.nextLine();
+                        while (!checkName(name) || findNumberOfRowByName(book, name)!=-1) {
+                            System.out.println("Повторяющееся имя или неверный формат. Введите в формате: Фамилия Имя Отчество через пробел");
+                            name = scanner.nextLine();
+                        }
+                        formatName += formatName(name);
+                    }
+                }
+            } else {// если пользователь ввел имя
+                formatName = formatName(input);
                 int indexRow = findNumberOfRowByName(book, formatName);// ищем имя в справочнике
-                if (indexRow != -1) {
+                if (indexRow != -1) {// нашли имя в справочнике
                     System.out.println(book[indexRow][1]);
-                } else {
+                    System.out.println("Введите имя, телефон или exit чтобы выйти");
+                    input = scanner.nextLine();
+                    continue;
+                } else {//в справочнике имени нет
                     System.out.println("Введите номер телефона, пожалуйста");
                     String number = scanner.nextLine();
-                    while (!checkPhoneNumber(number)) {
-                        System.out.println("некорректный номер");
+                    while (!checkPhoneNumber(number) || findNumberOfRowByNumber(book, number)!=-1) {
+                        System.out.println("некорректный или повторяющийся номер");
                         number = scanner.nextLine();
                     }
-                    String formatNumber = formatPhoneNumber(number);
-                    String[][] tmpArray = Arrays.copyOf(book, book.length);
-                    book = new String[book.length + 1][2];
-                    System.arraycopy(tmpArray, 0, book, 0, tmpArray.length);
-                    add(book, formatName, formatNumber);
-
+                    formatNumber += formatPhoneNumber(number);
                 }
-                System.out.println("Введите имя или exit чтобы выйти");
             }
-            name = scanner.nextLine();
+            String[][] tmpArray = Arrays.copyOf(book, book.length);
+            book = new String[book.length + 1][2];
+            System.arraycopy(tmpArray, 0, book, 0, tmpArray.length);
+            add(book, formatName, formatNumber);
+            System.out.println("Введите имя, телефон или exit чтобы выйти");
+            input = scanner.nextLine();
         }
         System.out.println("Показать все записи? y/n");
         if (scanner.nextLine().equals("y")) {
@@ -41,8 +69,16 @@ public class PhoneBook {
     }
 
     private static int findNumberOfRowByName(String[][] book, String formatName) {
+        System.out.println("проверил,");
         for (int i = 0; i < book.length; ++i) {
             if (book[i][0].equals(formatName)) return i;
+        }
+        return -1;
+    }
+
+    private static int findNumberOfRowByNumber(String[][] book, String formatNamber) {
+        for (int i = 0; i < book.length; ++i) {
+            if (book[i][1].equals(formatNamber)) return i;
         }
         return -1;
     }
@@ -53,6 +89,7 @@ public class PhoneBook {
     }
 
     public static boolean checkName(String name) {
+        if (name.matches(".*\\d.*")) return false;//цифр в имени быть не должно
         String[] checked = name.trim().split(" ");
         if (checked.length == 3) {
             if (!(checked[0] + checked[1] + checked[2]).contains(" ")) return true;

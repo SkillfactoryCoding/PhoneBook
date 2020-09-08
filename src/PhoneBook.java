@@ -30,7 +30,7 @@ public class PhoneBook {
                     } else {// не нашли номер в справочнике
                         System.out.println("Введите имя, пожалуйста");
                         String name = scanner.nextLine();
-                        while (!checkName(name) || findNumberOfRowByName(book, name)!=-1) {
+                        while (!checkName(name)) {
                             System.out.println("Повторяющееся имя или неверный формат. Введите в формате: Фамилия Имя Отчество через пробел");
                             name = scanner.nextLine();
                         }
@@ -48,7 +48,7 @@ public class PhoneBook {
                 } else {//в справочнике имени нет
                     System.out.println("Введите номер телефона, пожалуйста");
                     String number = scanner.nextLine();
-                    while (!checkPhoneNumber(number) || findNumberOfRowByNumber(book, number)!=-1) {
+                    while (!checkPhoneNumber(number)) {
                         System.out.println("некорректный или повторяющийся номер");
                         number = scanner.nextLine();
                     }
@@ -64,12 +64,11 @@ public class PhoneBook {
         }
         System.out.println("Показать все записи? y/n");
         if (scanner.nextLine().equals("y")) {
-            list(book);
+            list(bubbleSort(book));
         }
     }
 
     private static int findNumberOfRowByName(String[][] book, String formatName) {
-        System.out.println("проверил,");
         for (int i = 0; i < book.length; ++i) {
             if (book[i][0].equals(formatName)) return i;
         }
@@ -125,5 +124,25 @@ public class PhoneBook {
             System.out.println(book[i][0] + ": " + book[i][1]);
         }
         //print phone book
+    }
+
+    private static String[][] bubbleSort(String[][] array) {
+        boolean sorted = false;
+        while (!sorted) {
+            for (int i = 0; i < array.length - 1; ++i) {
+                if (array[i][0].compareTo(array[i + 1][0])>0) {
+                    swap(array, i, i + 1);
+                    sorted = false;
+                    break;
+                } else sorted = true;
+            }
+
+        }
+        return array;
+    }
+    private static void swap(String[][] array, int i1, int i2) {
+            String[] tmp = array[i1];
+            array[i1] = array[i2];
+            array[i2] = tmp;
     }
 }

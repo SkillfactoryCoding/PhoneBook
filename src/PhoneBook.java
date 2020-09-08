@@ -31,7 +31,8 @@ public class PhoneBook {
                         System.out.println("Введите имя, пожалуйста");
                         String name = scanner.nextLine();
                         while (!checkName(name)) {
-                            System.out.println("Повторяющееся имя или неверный формат. Введите в формате: Фамилия Имя Отчество через пробел");
+                            System.out.println("Неверный формат. " +
+                                    "Введите в формате: Фамилия Имя Отчество через пробел");
                             name = scanner.nextLine();
                         }
                         formatName += formatName(name);
@@ -49,7 +50,7 @@ public class PhoneBook {
                     System.out.println("Введите номер телефона, пожалуйста");
                     String number = scanner.nextLine();
                     while (!checkPhoneNumber(number)) {
-                        System.out.println("некорректный или повторяющийся номер");
+                        System.out.println("некорректный номер");
                         number = scanner.nextLine();
                     }
                     formatNumber += formatPhoneNumber(number);
@@ -130,19 +131,19 @@ public class PhoneBook {
         boolean sorted = false;
         while (!sorted) {
             for (int i = 0; i < array.length - 1; ++i) {
-                if (array[i][0].compareTo(array[i + 1][0])>0) {
+                if (array[i][0].compareTo(array[i + 1][0]) > 0) {
                     swap(array, i, i + 1);
                     sorted = false;
                     break;
                 } else sorted = true;
             }
-
         }
         return array;
     }
+
     private static void swap(String[][] array, int i1, int i2) {
-            String[] tmp = array[i1];
-            array[i1] = array[i2];
-            array[i2] = tmp;
+        String[] tmp = array[i1];
+        array[i1] = array[i2];
+        array[i2] = tmp;
     }
 }

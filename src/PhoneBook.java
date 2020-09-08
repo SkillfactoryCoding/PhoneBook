@@ -7,6 +7,7 @@ public class PhoneBook {
     public static void main(String[] args) {
         //Добавить считывание ввода пользователя в цикле
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите имя, телефон или exit чтобы выйти");
         String input = scanner.nextLine();
 
         String[][] book = new String[0][2];
@@ -56,9 +57,8 @@ public class PhoneBook {
                     formatNumber += formatPhoneNumber(number);
                 }
             }
-            String[][] tmpArray = Arrays.copyOf(book, book.length);
-            book = new String[book.length + 1][2];
-            System.arraycopy(tmpArray, 0, book, 0, tmpArray.length);
+            book = Arrays.copyOf(book, book.length+1);
+            book[book.length-1] = new String[2];
             add(book, formatName, formatNumber);
             System.out.println("Введите имя, телефон или exit чтобы выйти");
             input = scanner.nextLine();

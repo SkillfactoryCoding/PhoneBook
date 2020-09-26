@@ -85,11 +85,13 @@ public class PhoneBook {
                 + " " + cleanNumber.substring(7, 9) + " " + cleanNumber.substring(9);
     }
 
-    public static int add(String[][] book, String name, String number, int counter) {
+    public static String[][] add(String[][] book, String name, String number, int counter) {
+        if (counter == book.length) {
+            book = Arrays.copyOf(book, book.length + 1);
+        }
         book[counter][0] = name;
         book[counter][1] = number;
-        counter++;
-        return counter;
+        return book;
     }
 
     public static void list(String[][] book) {

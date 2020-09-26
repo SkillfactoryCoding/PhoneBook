@@ -10,7 +10,8 @@ public class PhoneBook {
 
         while (isWorking) {
             System.out.println("Введите символ: \n " +
-                    "\tN - ввести имя; \n\tP - ввести номер; \n\tS - остановить работу с книгой");
+                    "\tN - ввести имя; \n\tP - ввести номер; \n\tS - остановить работу с книгой" +
+                    "\n\tB - распечатать книгу в алфавитном порядке\n");
             char ans = scanner.next().charAt(0);
 
             switch (ans) {
@@ -46,13 +47,14 @@ public class PhoneBook {
                     isWorking = false;
                     System.out.println("Работа с книгой закончена");
                     break;
+                case 'B':
+                    System.out.println("Содержимое книги:");
+                    String[][] sortedBook = getSortedBook(book);
+                    list(book);
+                    break;
                 default:
                     System.out.println("Неизвестный символ!");
             }
-            if (!isWorking) {
-                break;
-            }
-
         }
     }
 

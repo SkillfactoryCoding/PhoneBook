@@ -1,7 +1,21 @@
-public class PhoneBook {
+import java.util.Scanner;
 
+public class PhoneBook {
     public static void main(String[] args) {
-        //Добавить считывание ввода пользователя в цикле
+        Scanner scanner = new Scanner(System.in);
+        boolean isCorrectNumber = false;
+
+        while (!isCorrectNumber) {
+            System.out.println("Введите номер телефона:");
+            String phoneNumber = scanner.nextLine();
+            isCorrectNumber = checkPhoneNumber(phoneNumber);
+            if (!isCorrectNumber) {
+                System.out.println("Номер некорректный!");
+            }
+            else {
+                System.out.println(formatPhoneNumber(phoneNumber));
+            }
+        }
     }
 
     public static boolean checkPhoneNumber(String phoneNumber) {

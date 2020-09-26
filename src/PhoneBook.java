@@ -114,4 +114,26 @@ public class PhoneBook {
         }
         return result;
     }
+
+    public static int findNameIndex(String[][] book, String name) {
+        int idx = 0;
+        for (int i = 0; i < book.length; i++) {
+            if (book[i][0].equals(name)) {
+                idx = i;
+                break;
+            }
+        }
+        return idx;
+    }
+
+    public static int findNumberIndex(String[][] book, String number) {
+        int idx = 0;
+        for (int i = 0; i < book.length; i++) {
+            if (book[i][1].equals(number)) {
+                idx = i;
+                break;
+            }
+        }
+        return idx;
+    }
 }

@@ -5,7 +5,8 @@ public class PhoneBook {
     }
 
     public static boolean checkPhoneNumber(String phoneNumber) {
-        return true;
+        String cleanNumber = phoneNumber.replaceAll("[^0-9]", "");
+        return cleanNumber.length() == 11;
     }
 
     public static boolean checkName(String name) {

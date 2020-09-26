@@ -43,6 +43,7 @@ public class PhoneBook {
         String[] words = name.trim().split(" ");
         String result = "";
         for (String str : words) {
+            str = str.toLowerCase();
             char firstChar = str.charAt(0);
             result += Character.toUpperCase(firstChar) + str.substring(1) + " ";
         }

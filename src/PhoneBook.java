@@ -94,7 +94,9 @@ public class PhoneBook {
 
     public static void list(String[][] book) {
         for (String[] strings : book) {
-            System.out.println(strings[0] + ": " + strings[1]);
+            if (strings[0] != "") {
+                System.out.println(strings[0] + ": " + strings[1]);
+            }
         }
     }
 

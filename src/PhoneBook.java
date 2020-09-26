@@ -92,4 +92,26 @@ public class PhoneBook {
         }
         return current_number;
     }
+
+    public static boolean checkNamePresence(String[][] book, String name) {
+        boolean result = false;
+        for (String[] strings : book) {
+            if (strings[0].equals(name)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public static boolean checkNumberPresence(String[][] book, String number) {
+        boolean result = false;
+        for (String[] strings : book) {
+            if (strings[1].equals(number)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
 }

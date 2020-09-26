@@ -49,7 +49,7 @@ public class PhoneBook {
                     break;
                 case 'B':
                     System.out.println("Содержимое книги:");
-                    String[][] sortedBook = getSortedBook(book);
+//                    String[][] sortedBook = getSortedBook(book);
                     list(book);
                     break;
                 default:
@@ -194,5 +194,11 @@ public class PhoneBook {
             }
         }
         return idx;
+    }
+
+    public static void bookInitialization(String[][] book) {
+        for (String[] strings : book) {
+            Arrays.fill(strings, "");
+        }
     }
 }

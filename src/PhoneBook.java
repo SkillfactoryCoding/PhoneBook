@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class PhoneBook {
     public static void main(String[] args) {
+        String[][] book = new String[20][2];
+        String current_name;
+        String current_number;
         Scanner scanner = new Scanner(System.in);
 
         boolean isCorrectName = false;
@@ -12,7 +15,7 @@ public class PhoneBook {
             if (!isCorrectName) {
                 System.out.println("Имя некорректное!");
             } else {
-                System.out.println(formatName(name));
+                current_name = formatName(name);
             }
         }
 
@@ -24,7 +27,7 @@ public class PhoneBook {
             if (!isCorrectNumber) {
                 System.out.println("Номер некорректный!");
             } else {
-                System.out.println(formatPhoneNumber(phoneNumber));
+                current_number = formatPhoneNumber(phoneNumber);
             }
         }
     }

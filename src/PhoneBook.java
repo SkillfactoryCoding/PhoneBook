@@ -29,7 +29,13 @@ public class PhoneBook {
     }
 
     public static String formatName(String name) {
-        return "";
+        String[] words = name.trim().split(" ");
+        String result = "";
+        for (String str : words) {
+            char firstChar = str.charAt(0);
+            result += Character.toUpperCase(firstChar) + str.substring(1) + " ";
+        }
+        return result;
     }
 
     public static String formatPhoneNumber(String number) {

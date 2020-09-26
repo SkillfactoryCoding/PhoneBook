@@ -8,15 +8,50 @@ public class PhoneBook {
         boolean isWorking = true;
 
         while (isWorking) {
-            System.out.println("Введите N для");
+            System.out.println("Введите символ: \n " +
+                    "\tN - ввести имя; \n\tP - ввести номер; \n\tS - остановить работу с книгой");
             char ans = scanner.next().charAt(0);
 
-            String[] newRecord = getNewRecord();
-            String current_name = newRecord[0];
-            String current_number = newRecord[1];
+            switch (ans) {
+                case 'N':
+                    String newName = getNewName();
+                    boolean isNamePresented = checkNamePresence(book, newName);
+                    if (isNamePresented) {
+                        int idx = findNameIndex(book, newName);
+                        System.out.println("Имя найдено в книге!\n" + book[idx][0] + ": " + book[idx][1] + "\n");
+                    }
+                    else {
+                        System.out.println("Имя не найдено! Создение новой записи...");
+                        String newNumber = getNewNumber();
+                        record_counter = add(book, newName, newNumber, record_counter);
+                        System.out.println("Новая запись создана!\n");
+                    }
+                    break;
+                case 'P':
+                    String newNumber = getNewNumber();
+                    boolean isNumberPresented = checkNumberPresence(book, newNumber);
+                    if (isNumberPresented) {
+                        int idx = findNumberIndex(book, newNumber);
+                        System.out.println("Номер найден в книге!\n" + book[idx][0] + ": " + book[idx][1] + "\n");
+                    }
+                    else {
+                        System.out.println("Номер не найден! Создение новой записи...");
+                        newName = getNewName();
+                        record_counter = add(book, newName, newNumber, record_counter);
+                        System.out.println("Новая запись создана!\n");
+                    }
+                    break;
+                case 'S':
+                    isWorking = false;
+                    System.out.println("Работа с книгой закончена");
+                    break;
+                default:
+                    System.out.println("Неизвестный символ!");
+            }
+            if (!isWorking) {
+                break;
+            }
 
-            record_counter = add(book, current_name, current_number, record_counter);
-            System.out.println(current_name + " " + current_number);
         }
     }
 

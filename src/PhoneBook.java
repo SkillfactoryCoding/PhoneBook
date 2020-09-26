@@ -3,14 +3,21 @@ import java.util.Scanner;
 public class PhoneBook {
     public static void main(String[] args) {
         String[][] book = new String[20][2];
+        Scanner scanner = new Scanner(System.in);
         int record_counter = 0;
+        boolean isWorking = true;
 
-        String[] newRecord = getNewRecord();
-        String current_name = newRecord[0];
-        String current_number = newRecord[1];
+        while (isWorking) {
+            System.out.println("Введите N для");
+            char ans = scanner.next().charAt(0);
 
-        record_counter = add(book, current_name, current_number, record_counter);
+            String[] newRecord = getNewRecord();
+            String current_name = newRecord[0];
+            String current_number = newRecord[1];
 
+            record_counter = add(book, current_name, current_number, record_counter);
+            System.out.println(current_name + " " + current_number);
+        }
     }
 
     public static boolean checkPhoneNumber(String phoneNumber) {
@@ -51,12 +58,9 @@ public class PhoneBook {
         //print phone book
     }
 
-    public static String[] getNewRecord() {
+    public static String getNewName() {
         String current_name = "";
-        String current_number = "";
-
         Scanner scanner = new Scanner(System.in);
-
         boolean isCorrectName = false;
         while (!isCorrectName) {
             System.out.println("Введите ФИО:");
@@ -68,7 +72,13 @@ public class PhoneBook {
                 current_name = formatName(name);
             }
         }
+        return current_name;
 
+    }
+
+    public static String getNewNumber() {
+        String current_number = "";
+        Scanner scanner = new Scanner(System.in);
         boolean isCorrectNumber = false;
         while (!isCorrectNumber) {
             System.out.println("Введите номер телефона:");
@@ -80,6 +90,6 @@ public class PhoneBook {
                 current_number = formatPhoneNumber(phoneNumber);
             }
         }
-        return new String[]{current_name, current_number};
+        return current_number;
     }
 }

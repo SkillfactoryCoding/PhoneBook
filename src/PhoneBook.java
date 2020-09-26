@@ -5,6 +5,7 @@ public class PhoneBook {
         String[][] book = new String[20][2];
         String current_name;
         String current_number;
+        int record_counter = 0;
         Scanner scanner = new Scanner(System.in);
 
         boolean isCorrectName = false;
@@ -59,8 +60,11 @@ public class PhoneBook {
                 + " " + cleanNumber.substring(7, 9) + " " + cleanNumber.substring(9);
     }
 
-    public static void add(String[][] book, String name, String number) {
-        //add logic
+    public static int add(String[][] book, String name, String number, int counter) {
+        book[counter][0] = name;
+        book[counter][1] = number;
+        counter++;
+        return counter;
     }
 
     public static void list(String[][] book) {

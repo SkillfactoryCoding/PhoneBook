@@ -91,7 +91,9 @@ public class PhoneBook {
     }
 
     public static void list(String[][] book) {
-        //print phone book
+        for (String[] strings : book) {
+            System.out.println(strings[0] + ": " + strings[1]);
+        }
     }
 
     public static String[][] getSortedBook(String[][] book) {

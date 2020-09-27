@@ -108,13 +108,19 @@ public class PhoneBook {
         while (!isSorted) {
             isSorted = true;
             for (int i = 1; i < sortedBook.length; i++) {
-                if (sortedBook[i][0].charAt(0) < sortedBook[i - 1][0].charAt(0)) {
-                    String[] temp = {sortedBook[i][0], sortedBook[i][1]};
-                    sortedBook[i][0] = sortedBook[i - 1][0];
-                    sortedBook[i][1] = sortedBook[i - 1][1];
-                    sortedBook[i - 1][0] = temp[0];
-                    sortedBook[i - 1][1] = temp[1];
-                    isSorted = false;
+                for (int j = 0; j < book[i][0].length(); j++) {
+                    if ((int) sortedBook[i][0].charAt(j) < (int) sortedBook[i - 1][0].charAt(j)) {
+                        String[] temp = {sortedBook[i][0], sortedBook[i][1]};
+                        sortedBook[i][0] = sortedBook[i - 1][0];
+                        sortedBook[i][1] = sortedBook[i - 1][1];
+                        sortedBook[i - 1][0] = temp[0];
+                        sortedBook[i - 1][1] = temp[1];
+                        isSorted = false;
+                        break;
+                    }
+                    else if ((int) sortedBook[i][0].charAt(j) > (int) sortedBook[i - 1][0].charAt(j)) {
+                        break;
+                    }
                 }
             }
         }

@@ -87,11 +87,19 @@ public class PhoneBook {
 
     public static String[][] add(String[][] book, String name, String number, int counter) {
         if (counter == book.length) {
-            book = Arrays.copyOf(book, book.length + 1);
+            String[][] newBook = new String[book.length+1][2];
+            for (int i = 0; i < book.length; i++) {
+                newBook[i] = Arrays.copyOf(book[i], book[i].length);
+            }
+            newBook[counter][0] = name;
+            newBook[counter][1] = number;
+            return newBook;
         }
-        book[counter][0] = name;
-        book[counter][1] = number;
-        return book;
+        else {
+            book[counter][0] = name;
+            book[counter][1] = number;
+            return book;
+        }
     }
 
     public static void list(String[][] book) {
@@ -100,6 +108,7 @@ public class PhoneBook {
                 System.out.println(strings[0] + ": " + strings[1]);
             }
         }
+        System.out.println("\n");
     }
 
     public static String[][] getSortedBook(String[][] book) {

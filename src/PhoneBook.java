@@ -3,15 +3,21 @@ import java.util.Scanner;
 
 public class PhoneBook {
     public static void main(String[] args) {
-        String[][] book = new String[20][2];
+        String[][] book = new String[3][2];
+        bookInitialization(book);
+        book[0][0] = "Маринина Анна Сергеевна ";
+        book[0][1] = "8 916 111 11 11";
+        book[1][0] = "Терентьев Василий Михайлович ";
+        book[1][1] = "8 914 222 22 22";
+        book[2][0] = "Арискин Антон Васильевич ";
+        book[2][1] = "8 999 990 99 99";
         Scanner scanner = new Scanner(System.in);
-        int record_counter = 0;
+        int record_counter = 3;
         boolean isWorking = true;
 
         while (isWorking) {
-            System.out.println("Введите символ: \n " +
-                    "\tN - ввести имя; \n\tP - ввести номер; \n\tS - остановить работу с книгой" +
-                    "\n\tB - распечатать книгу в алфавитном порядке\n");
+            System.out.println("Введите символ: N - ввести имя; P - ввести номер;\n" +
+                    "\tB - распечатать книгу в алфавитном порядке; S - остановить работу с книгой\n");
             char ans = scanner.next().charAt(0);
 
             switch (ans) {
@@ -21,12 +27,12 @@ public class PhoneBook {
                     if (isNamePresented) {
                         int idx = findNameIndex(book, newName);
                         System.out.println("Имя найдено в книге!\n" + book[idx][0] + ": " + book[idx][1] + "\n");
-                    }
-                    else {
+                    } else {
                         System.out.println("Имя не найдено! Создение новой записи...");
                         String newNumber = getNewNumber();
-                        record_counter = add(book, newName, newNumber, record_counter);
+                        book = add(book, newName, newNumber, record_counter);
                         System.out.println("Новая запись создана!\n");
+                        record_counter++;
                     }
                     break;
                 case 'P':
@@ -35,12 +41,12 @@ public class PhoneBook {
                     if (isNumberPresented) {
                         int idx = findNumberIndex(book, newNumber);
                         System.out.println("Номер найден в книге!\n" + book[idx][0] + ": " + book[idx][1] + "\n");
-                    }
-                    else {
+                    } else {
                         System.out.println("Номер не найден! Создение новой записи...");
                         newName = getNewName();
-                        record_counter = add(book, newName, newNumber, record_counter);
+                        book = add(book, newName, newNumber, record_counter);
                         System.out.println("Новая запись создана!\n");
+                        record_counter++;
                     }
                     break;
                 case 'S':
@@ -49,8 +55,8 @@ public class PhoneBook {
                     break;
                 case 'B':
                     System.out.println("Содержимое книги:");
-//                    String[][] sortedBook = getSortedBook(book);
-                    list(book);
+                    String[][] sortedBook = getSortedBook(book);
+                    list(sortedBook);
                     break;
                 default:
                     System.out.println("Неизвестный символ!");
